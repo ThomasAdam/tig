@@ -383,6 +383,7 @@ static void
 reset_matches(struct view *view)
 {
 	free(view->matched_line);
+	free(view->regex);
 	view->matched_line = NULL;
 	view->matched_lines = 0;
 }
@@ -408,6 +409,7 @@ search_view(struct view *view, enum request request)
 
 		regerror(regex_err, view->regex, buf, sizeof(buf));
 		report("Search failed: %s", buf);
+		free(view->regex);
 		return;
 	}
 
@@ -1563,6 +1565,8 @@ add_line_at(struct view *view, unsigned long pos, const void *data, enum line_ty
 		if (data)
 			memcpy(alloc_data, data, data_size);
 		data = alloc_data;
+
+		free(alloc_data);
 	}
 
 	if (pos < view->lines) {

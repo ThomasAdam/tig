@@ -261,6 +261,7 @@ get_path(const char *path)
 			return NULL;
 		}
 		strncpy(entry->path, path, strlen(path));
+		free(entry);
 	}
 
 	return entry->path;

@@ -153,6 +153,7 @@ refs_open(struct view *view, enum open_flags flags)
 			strncpy(ref->name, REFS_ALL_NAME, strlen(REFS_ALL_NAME));
 			refs_all = ref;
 		}
+		free (ref);
 	}
 
 	if (!refs_all || !begin_update(view, NULL, refs_log, OPEN_RELOAD)) {
